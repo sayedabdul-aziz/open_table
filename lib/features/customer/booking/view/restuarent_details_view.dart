@@ -99,12 +99,13 @@ class _RestuarentDetailViewState extends State<RestuarentDetailView> {
                   ),
                 ),
                 const Positioned(top: 40, left: 35, child: CustomBackAction()),
-                Positioned(
-                    top: 40,
-                    right: 35,
-                    child: FavouriteIconWidget(
-                      model: widget.model,
-                    )),
+                if (FirebaseAuth.instance.currentUser?.photoURL != '1')
+                  Positioned(
+                      top: 40,
+                      right: 35,
+                      child: FavouriteIconWidget(
+                        model: widget.model,
+                      )),
               ],
             ),
             const Gap(20),
@@ -132,108 +133,110 @@ class _RestuarentDetailViewState extends State<RestuarentDetailView> {
               ),
             ),
             const Gap(10),
-            Divider(
-              color: AppColors.white,
-            ),
-            const Gap(10),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: ExpansionTile(
-                collapsedBackgroundColor: AppColors.white,
-                collapsedIconColor: AppColors.primary,
-                backgroundColor: Colors.transparent,
-                shape: ContinuousRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                childrenPadding: const EdgeInsets.symmetric(vertical: 10),
-                subtitle: Text(
-                  'Send Your Feedback Now',
-                  style: getsmallStyle(),
-                ),
-                title: Text(
-                  'Review',
-                  style: getTitleStyle(fontSize: 16),
-                ),
-                children: [
-                  TextFormField(
-                    controller: _message,
-                    maxLines: 3,
-                    decoration: InputDecoration(
-                        hintText: 'Add a comment...',
-                        fillColor: AppColors.white),
+            if (FirebaseAuth.instance.currentUser?.photoURL != '1') ...{
+              Divider(
+                color: AppColors.white,
+              ),
+              const Gap(10),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: ExpansionTile(
+                  collapsedBackgroundColor: AppColors.white,
+                  collapsedIconColor: AppColors.primary,
+                  backgroundColor: Colors.transparent,
+                  shape: ContinuousRectangleBorder(
+                      borderRadius: BorderRadius.circular(15)),
+                  childrenPadding: const EdgeInsets.symmetric(vertical: 10),
+                  subtitle: Text(
+                    'Send Your Feedback Now',
+                    style: getsmallStyle(),
                   ),
-                  const Gap(15),
-                  Row(
-                    children: [
-                      Row(
-                        children: List.generate(
-                          5,
-                          (index) => InkWell(
-                            onTap: () {
-                              setState(() {
-                                rate = index + 1;
-                              });
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(4),
-                              child: Icon(
-                                (rate <= index)
-                                    ? Icons.star_border_purple500_sharp
-                                    : Icons.star_purple500_sharp,
-                                color: AppColors.primary,
-                                size: 27,
+                  title: Text(
+                    'Review',
+                    style: getTitleStyle(fontSize: 16),
+                  ),
+                  children: [
+                    TextFormField(
+                      controller: _message,
+                      maxLines: 3,
+                      decoration: InputDecoration(
+                          hintText: 'Add a comment...',
+                          fillColor: AppColors.white),
+                    ),
+                    const Gap(15),
+                    Row(
+                      children: [
+                        Row(
+                          children: List.generate(
+                            5,
+                            (index) => InkWell(
+                              onTap: () {
+                                setState(() {
+                                  rate = index + 1;
+                                });
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(4),
+                                child: Icon(
+                                  (rate <= index)
+                                      ? Icons.star_border_purple500_sharp
+                                      : Icons.star_purple500_sharp,
+                                  color: AppColors.primary,
+                                  size: 27,
+                                ),
                               ),
                             ),
-                          ),
-                        ).toList(),
-                      ),
-                      const Spacer(),
-                      CustomButton(
-                        width: 90,
-                        height: 40,
-                        radius: 10,
-                        text: 'SEND',
-                        onTap: () {
-                          double totalRating = 0;
-                          int totalReviews = widget.model.reviews!.length;
+                          ).toList(),
+                        ),
+                        const Spacer(),
+                        CustomButton(
+                          width: 90,
+                          height: 40,
+                          radius: 10,
+                          text: 'SEND',
+                          onTap: () {
+                            double totalRating = 0;
+                            int totalReviews = widget.model.reviews!.length;
 
-                          for (var review in widget.model.reviews!) {
-                            totalRating += review.rate!.toDouble();
-                          }
+                            for (var review in widget.model.reviews!) {
+                              totalRating += review.rate!.toDouble();
+                            }
 
-                          double res = totalRating / totalReviews;
-                          // update rate in hotel collection
-                          FirebaseFirestore.instance
-                              .collection('restaurents')
-                              .doc(widget.model.id)
-                              .update({
-                            'rating': (res > 5 ? 5 : res),
-                            'reviews': [
-                              ...widget.model.reviews!.map((e) => e.toJson()),
-                              {
-                                'message': _message.text,
-                                'rate': rate.toDouble(),
-                                'name': FirebaseAuth
-                                    .instance.currentUser!.displayName
-                              }
-                            ]
-                          }).then((value) {
-                            _message.clear();
-                            setState(() {
-                              rate = 0;
+                            double res = totalRating / totalReviews;
+                            // update rate in hotel collection
+                            FirebaseFirestore.instance
+                                .collection('restaurents')
+                                .doc(widget.model.id)
+                                .update({
+                              'rating': (res > 5 ? 5 : res),
+                              'reviews': [
+                                ...widget.model.reviews!.map((e) => e.toJson()),
+                                {
+                                  'message': _message.text,
+                                  'rate': rate.toDouble(),
+                                  'name': FirebaseAuth
+                                      .instance.currentUser!.displayName
+                                }
+                              ]
+                            }).then((value) {
+                              _message.clear();
+                              setState(() {
+                                rate = 0;
+                              });
+
+                              showErrorDialog(
+                                  context,
+                                  'Your Review sent Successfully',
+                                  AppColors.bottomBarColor);
                             });
-
-                            showErrorDialog(
-                                context,
-                                'Your Review sent Successfully',
-                                AppColors.bottomBarColor);
-                          });
-                        },
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            )
+                          },
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              )
+            }
           ],
         ),
       ),

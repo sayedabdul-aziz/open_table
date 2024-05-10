@@ -45,7 +45,7 @@ class _RestuarentBookingViewState extends State<RestuarentBookingView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Book a Room'),
+        title: const Text('Book a Restaurant'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -59,7 +59,7 @@ class _RestuarentBookingViewState extends State<RestuarentBookingView> {
             const SizedBox(height: 10),
             CustomButton(
               onTap: () => _showDatePicker(context, 'checkIn'),
-              color: AppColors.shadeColor,
+              color: AppColors.primary,
               text: _checkInDate == null
                   ? 'Select Check-In Date'
                   : '${_checkInDate!.day}/${_checkInDate!.month}/${_checkInDate!.year}',
@@ -85,14 +85,14 @@ class _RestuarentBookingViewState extends State<RestuarentBookingView> {
                       decoration: BoxDecoration(
                           color: mealIndex == 0
                               ? AppColors.primary
-                              : AppColors.shadeColor,
+                              : AppColors.white,
                           border: Border.all(),
                           borderRadius: BorderRadius.circular(5)),
                       child: Text(
                         'breakfast',
                         style: getbodyStyle(
                           color: mealIndex == 0
-                              ? AppColors.bottomBarColor
+                              ? AppColors.white
                               : AppColors.bottomBarColor,
                         ),
                       ),
@@ -114,13 +114,13 @@ class _RestuarentBookingViewState extends State<RestuarentBookingView> {
                           border: Border.all(),
                           color: mealIndex == 1
                               ? AppColors.primary
-                              : AppColors.shadeColor,
+                              : AppColors.white,
                           borderRadius: BorderRadius.circular(5)),
                       child: Text(
                         'Lunch',
                         style: getbodyStyle(
                           color: mealIndex == 1
-                              ? AppColors.bottomBarColor
+                              ? AppColors.white
                               : AppColors.bottomBarColor,
                         ),
                       ),
@@ -142,13 +142,13 @@ class _RestuarentBookingViewState extends State<RestuarentBookingView> {
                           border: Border.all(),
                           color: mealIndex == 2
                               ? AppColors.primary
-                              : AppColors.shadeColor,
+                              : AppColors.white,
                           borderRadius: BorderRadius.circular(5)),
                       child: Text(
                         'Dinner',
                         style: getbodyStyle(
-                          color: mealIndex == 1
-                              ? AppColors.bottomBarColor
+                          color: mealIndex == 2
+                              ? AppColors.white
                               : AppColors.bottomBarColor,
                         ),
                       ),
@@ -169,7 +169,7 @@ class _RestuarentBookingViewState extends State<RestuarentBookingView> {
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
-                color: AppColors.shadeColor,
+                color: AppColors.white,
               ),
               child: DropdownButton<int>(
                 value: _numberOfGuests,

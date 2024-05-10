@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:open_table/core/utils/app_text_styles.dart';
 import 'package:open_table/features/customer/home/widgets/resturentt_item.dart';
 import 'package:open_table/features/models/restaurant_model.dart';
 
@@ -12,6 +13,16 @@ class TopRestuarentList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(24, 0, 24, 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text('Top Restuarant', style: getTitleStyle()),
+            ],
+          ),
+        ),
         StreamBuilder(
             stream: FirebaseFirestore.instance
                 .collection('restaurents')

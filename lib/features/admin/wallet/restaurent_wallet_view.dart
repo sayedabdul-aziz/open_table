@@ -121,7 +121,7 @@ class RestaurentWalletViewState extends State<RestaurentWalletView> {
                                     borderRadius: const BorderRadius.all(
                                       Radius.circular(15),
                                     ),
-                                    color: AppColors.bottomBarColor,
+                                    color: AppColors.white,
                                     border: Border.all(
                                         color: AppColors.shadeColor)),
                                 child: Column(

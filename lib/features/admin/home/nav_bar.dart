@@ -37,6 +37,7 @@ class _ManagerNavBarViewState extends State<ManagerNavBarView> {
             selectedItemColor: AppColors.primary,
             unselectedItemColor: AppColors.bottomBarColor,
             type: BottomNavigationBarType.fixed,
+            currentIndex: _selectedIndex,
             onTap: (index) {
               setState(() {
                 _selectedIndex = index;

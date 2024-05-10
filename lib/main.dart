@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:open_table/core/services/firebase_services.dart';
 import 'package:open_table/core/utils/app_text_styles.dart';
 import 'package:open_table/core/utils/colors.dart';
@@ -52,7 +53,7 @@ class _HotelBookingState extends State<HotelBooking> {
         title: 'open_table',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          fontFamily: 'NunitoSans',
+          fontFamily: GoogleFonts.poppins().fontFamily,
           scaffoldBackgroundColor: AppColors.darkScaffoldbg,
           appBarTheme: AppBarTheme(
             backgroundColor: AppColors.darkScaffoldbg,

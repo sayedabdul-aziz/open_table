@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:open_table/core/constants/constant.dart';
 import 'package:open_table/core/functions/routing.dart';
+import 'package:open_table/core/utils/colors.dart';
 import 'package:open_table/features/customer/home/view/search_view.dart';
 
 class SearchBarWidget extends StatelessWidget {
@@ -39,7 +40,7 @@ class SearchBarWidget extends StatelessWidget {
                   width: 44,
                   padding: const EdgeInsets.all(11),
                   decoration: BoxDecoration(
-                    color: kShadeColor,
+                    color: AppColors.primary,
                     borderRadius: BorderRadius.circular(11),
                   ),
                   child: SvgPicture.asset('assets/icons/search.svg'),
