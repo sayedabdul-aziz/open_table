@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1014756748005",
+    "project_id": "open-table-27826",
+    "storage_bucket": "open-table-27826.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1014756748005:android:f9a3f8b0e3975c30bc420c",
+        "android_client_info": {
+          "package_name": "com.example.open_table"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDW9W8nO9rSS0LS0nwztJ7hGygnSpjdASY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
