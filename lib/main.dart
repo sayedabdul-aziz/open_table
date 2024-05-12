@@ -11,6 +11,7 @@ import 'package:open_table/core/widgets/bottom_bar.dart';
 import 'package:open_table/features/admin/home/nav_bar.dart';
 import 'package:open_table/features/auth/presentation/view/signin_view.dart';
 import 'package:open_table/features/auth/presentation/view_model/auth_cubit.dart';
+import 'package:open_table/firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,23 +20,21 @@ Future<void> main() async {
     statusBarIconBrightness: Brightness.dark,
   ));
   await Firebase.initializeApp(
-      options: const FirebaseOptions(
-          apiKey: 'AIzaSyDW9W8nO9rSS0LS0nwztJ7hGygnSpjdASY',
-          appId: 'com.example.open_table',
-          messagingSenderId: '1014756748005',
-          projectId: 'open-table-27826'));
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   FirebaseServices.init();
-  runApp(const HotelBooking());
+  runApp(const MyApp());
 }
 
-class HotelBooking extends StatefulWidget {
-  const HotelBooking({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
 
   @override
-  State<HotelBooking> createState() => _HotelBookingState();
+  State<MyApp> createState() => _MyAppState();
 }
 
-class _HotelBookingState extends State<HotelBooking> {
+class _MyAppState extends State<MyApp> {
   User? user;
   String? role;
   @override
